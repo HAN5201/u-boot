@@ -3,7 +3,7 @@
 VERSION = 2022
 PATCHLEVEL = 04
 SUBLEVEL =
-EXTRAVERSION = -rc5
+EXTRAVERSION =
 NAME =
 
 # *DOCUMENTATION*
@@ -521,7 +521,8 @@ env_h := include/generated/environment.h
 
 no-dot-config-targets := clean clobber mrproper distclean \
 			 help %docs check% coccicheck \
-			 ubootversion backup tests check qcheck tcheck pylint
+			 ubootversion backup tests check qcheck tcheck pylint \
+			 pylint_err
 
 config-targets := 0
 mixed-targets  := 0
@@ -682,8 +683,14 @@ endif
 
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os
-else
+endif
+
+ifdef CONFIG_CC_OPTIMIZE_FOR_SPEED
 KBUILD_CFLAGS	+= -O2
+endif
+
+ifdef CONFIG_CC_OPTIMIZE_FOR_DEBUG
+KBUILD_CFLAGS	+= -Og
 endif
 
 LTO_CFLAGS :=
@@ -1335,6 +1342,7 @@ cmd_binman = $(srctree)/tools/binman/binman $(if $(BINMAN_DEBUG),-D) \
 		-a tpl-bss-pad=$(if $(CONFIG_TPL_SEPARATE_BSS),,1) \
 		-a spl-dtb=$(CONFIG_SPL_OF_REAL) \
 		-a tpl-dtb=$(CONFIG_TPL_OF_REAL) \
+		-a pre-load-key-path=${PRE_LOAD_KEY_PATH} \
 		$(BINMAN_$(@F))
 
 OBJCOPYFLAGS_u-boot.ldr.hex := -I binary -O ihex
@@ -1846,7 +1854,7 @@ quiet_cmd_gen_envp = ENVP    $@
 			-I$(srctree)/arch/$(ARCH)/include \
 			$< -o $@; \
 	else \
-		rm $@; \
+		rm -f $@; \
 		touch $@ ; \
 	fi
 include/generated/env.in: include/generated/env.txt FORCE
@@ -2265,7 +2273,7 @@ distclean: mrproper
 	@rm -f boards.cfg CHANGELOG
 
 # See doc/develop/python_cq.rst
-PHONY += pylint
+PHONY += pylint pylint_err
 PYLINT_BASE := scripts/pylint.base
 PYLINT_CUR := pylint.cur
 PYLINT_DIFF := pylint.diff
@@ -2306,6 +2314,11 @@ pylint:
 		else \
 			echo "No pylint regressions"; \
 		fi
+
+# Check for errors only
+pylint_err:
+	$(Q)pylint -E  -j 0 --ignore-imports=yes \
+		$(shell find tools test -name "*.py")
 
 backup:
 	F=`basename $(srctree)` ; cd .. ; \
