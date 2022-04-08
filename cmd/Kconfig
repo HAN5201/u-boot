@@ -31,6 +31,13 @@ config CMDLINE_EDITING
 	  Enable editing and History functions for interactive command line
 	  input operations
 
+config CMDLINE_PS_SUPPORT
+	bool "Enable support for changing the command prompt string at run-time"
+	depends on HUSH_PARSER
+	help
+	  Only static string in the prompt is supported so far.  The string is
+	  obtained from environment variables PS1 and PS2.
+
 config AUTO_COMPLETE
 	bool "Enable auto complete using TAB"
 	depends on CMDLINE
@@ -517,6 +524,9 @@ config CMD_NVEDIT_EFI
 	  UEFI variables are encoded as some form of U-Boot variables.
 	  If enabled, we are allowed to set/print UEFI variables using
 	  "env" command with "-e" option without knowing details.
+
+config CMD_NVEDIT_INDIRECT
+	bool "env indirect - Sets environment value from another"
 
 config CMD_NVEDIT_INFO
 	bool "env info - print or evaluate environment information"
