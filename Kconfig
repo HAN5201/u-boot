@@ -250,9 +250,10 @@ config SYS_MALLOC_F_LEN
 	default 0x1000 if AM33XX
 	default 0x4000 if SANDBOX || RISCV
 	default 0x2000 if (ARCH_MX7 || ARCH_MX7ULP || ARCH_MX6 || ARCH_MX5 || \
-			   ARCH_QEMU || ARCH_SUNXI || ARCH_OWL)
-	default 0x10000 if (ARCH_IMX8 || ARCH_IMX8M || ARCH_LS1012A || \
-			    ARCH_LS1021A || ARCH_LS1043A || ARCH_LS1046A)
+			   ARCH_QEMU || ARCH_SUNXI || ARCH_OWL || IMX8MQ)
+	default 0x10000 if (ARCH_IMX8 || (ARCH_IMX8M && !IMX8MQ) || \
+			    ARCH_LS1012A || ARCH_LS1021A || ARCH_LS1043A || \
+			    ARCH_LS1046A)
 	default 0x400
 	help
 	  Before relocation, memory is very limited on many platforms. Still,
@@ -295,6 +296,20 @@ config TPL_SYS_MALLOC_F_LEN
 	  we can provide a small malloc() pool if needed. Driver model in
 	  particular needs this to operate, so that it can allocate the
 	  initial serial device and any others that are needed.
+
+config VALGRIND
+	bool "Inform valgrind about memory allocations"
+	help
+	  Valgrind is an instrumentation framework for building dynamic analysis
+	  tools. In particular, it may be used to detect memory management bugs
+	  in U-Boot. It relies on knowing when heap blocks are allocated in
+	  order to give accurate results. This happens automatically for
+	  standard allocator functions provided by the host OS. However, this
+	  doesn't automatically happen for U-Boot's malloc implementation.
+
+	  Enable this option to annotate U-Boot's malloc implementation so that
+	  it can be handled accurately by Valgrind. If you aren't planning on
+	  using valgrind to debug U-Boot, say 'n'.
 
 menuconfig EXPERT
 	bool "Configure standard U-Boot features (expert users)"
