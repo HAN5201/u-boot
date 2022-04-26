@@ -40,12 +40,6 @@ config TIMER_EARLY
 	  use an early timer. These functions must be supported by your timer
 	  driver: timer_early_get_count() and timer_early_get_rate().
 
-config AG101P_TIMER
-	bool "AG101P timer support"
-	depends on TIMER && NDS32
-	help
-	  Select this to enable a timer for AG01P devices.
-
 config ALTERA_TIMER
 	bool "Altera timer support"
 	depends on TIMER
@@ -96,6 +90,15 @@ config ATMEL_PIT_TIMER
 	  it is designed to offer maximum accuracy and efficient management,
 	  even for systems with long response time.
 
+config SPL_ATMEL_PIT_TIMER
+	bool "Atmel periodic interval timer support in SPL"
+	depends on SPL_TIMER
+	help
+	  Select this to enable a periodic interval timer for Atmel devices,
+	  it is designed to offer maximum accuracy and efficient management,
+	  even for systems with long response time.
+	  Select this to be available in SPL.
+
 config ATMEL_TCB_TIMER
 	bool "Atmel timer counter support"
 	depends on TIMER
@@ -103,6 +106,14 @@ config ATMEL_TCB_TIMER
 	help
 	  Select this to enable the use of the timer counter as a monotonic
 	  counter.
+
+config SPL_ATMEL_TCB_TIMER
+	bool "Atmel timer counter support in SPL"
+	depends on SPL_TIMER
+	depends on ARCH_AT91
+	help
+	  Select this to enable the use of the timer counter as a monotonic
+	  counter in SPL.
 
 config CADENCE_TTC_TIMER
 	bool "Cadence TTC (Triple Timer Counter)"

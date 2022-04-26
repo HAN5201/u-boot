@@ -509,6 +509,13 @@ int blk_get_from_parent(struct udevice *parent, struct udevice **devp)
 	return 0;
 }
 
+const char *blk_get_devtype(struct udevice *dev)
+{
+	struct udevice *parent = dev_get_parent(dev);
+
+	return uclass_get_name(device_get_uclass_id(parent));
+};
+
 int blk_find_max_devnum(enum if_type if_type)
 {
 	struct udevice *dev;
@@ -741,6 +748,10 @@ static int blk_post_probe(struct udevice *dev)
 		struct blk_desc *desc = dev_get_uclass_plat(dev);
 
 		part_init(desc);
+
+		if (desc->part_type != PART_TYPE_UNKNOWN &&
+		    part_create_block_devices(dev))
+			debug("*** creating partitions failed\n");
 	}
 
 	return 0;

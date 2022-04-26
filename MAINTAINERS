@@ -690,8 +690,30 @@ F:	arch/arm/dts/phytium-durian.dts
 
 BINMAN
 M:	Simon Glass <sjg@chromium.org>
+M:	Alper Nebi Yasak <alpernebiyasak@gmail.com>
 S:	Maintained
 F:	tools/binman/
+
+BOOTDEVICE
+M:	Simon Glass <sjg@chromium.org>
+S:	Maintained
+F:	boot/bootdev*.c
+F:	boot/bootflow.c
+F:	boot/bootmeth*.c
+F:	boot/bootstd.c
+F:	cmd/bootdev.c
+F:	cmd/bootflow.c
+F:	doc/develop/bootstd.rst
+F:	doc/usage/bootdev.rst
+F:	doc/usage/bootflow.rst
+F:	doc/usage/bootmeth.rst
+F:	drivers/mmc/mmc_bootdev.c
+F:	include/bootdev.h
+F:	include/bootflow.h
+F:	include/bootmeth.h
+F:	include/bootstd.h
+F:	net/eth_bootdevice.c
+F:	test/boot/
 
 BTRFS
 M:	Marek Behun <marek.behun@nic.cz>
@@ -1034,12 +1056,6 @@ NAND FLASH
 S:	Orphaned (Since 2018-07)
 T:	git https://source.denx.de/u-boot/custodians/u-boot-nand-flash.git
 F:	drivers/mtd/nand/raw/
-
-NDS32
-M:	Rick Chen <rick@andestech.com>
-S:	Maintained
-T:	git https://source.denx.de/u-boot/custodians/u-boot-nds32.git
-F:	arch/nds32/
 
 NETWORK
 M:	Joe Hershberger <joe.hershberger@ni.com>
