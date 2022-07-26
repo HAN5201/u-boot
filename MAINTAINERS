@@ -259,7 +259,7 @@ F:	arch/arm/cpu/arm926ejs/mx*/
 F:	arch/arm/cpu/armv7/vf610/
 F:	arch/arm/dts/*imx*
 F:	arch/arm/mach-imx/
-F:	arch/arm/include/asm/arch-imx/
+F:	arch/arm/include/asm/arch-imx*/
 F:	arch/arm/include/asm/arch-mx*/
 F:	arch/arm/include/asm/arch-vf610/
 F:	arch/arm/include/asm/mach-imx/
@@ -1364,6 +1364,7 @@ F:	arch/arm/mach-k3/config_secure.mk
 F:	configs/am335x_hs_evm_defconfig
 F:	configs/am335x_hs_evm_uart_defconfig
 F:	configs/am43xx_hs_evm_defconfig
+F:	configs/am43xx_hs_evm_qspi_defconfig
 F:	configs/am57xx_hs_evm_defconfig
 F:	configs/am57xx_hs_evm_usb_defconfig
 F:	configs/dra7xx_hs_evm_defconfig
