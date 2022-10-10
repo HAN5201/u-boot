@@ -159,12 +159,14 @@ efi_fmp_find(efi_guid_t *image_type, u8 image_index, u64 instance,
 	efi_status_t ret;
 
 	for (i = 0, handle = handles; i < no_handles; i++, handle++) {
-		ret = EFI_CALL(efi_handle_protocol(
-				*handle,
-				&efi_guid_firmware_management_protocol,
-				(void **)&fmp));
+		struct efi_handler *fmp_handler;
+
+		ret = efi_search_protocol(
+				*handle, &efi_guid_firmware_management_protocol,
+				&fmp_handler);
 		if (ret != EFI_SUCCESS)
 			continue;
+		fmp = fmp_handler->protocol_interface;
 
 		/* get device's image info */
 		info_size = 0;
@@ -215,10 +217,6 @@ efi_fmp_find(efi_guid_t *image_type, u8 image_index, u64 instance,
 skip:
 		efi_free_pool(package_version_name);
 		free(image_info);
-		EFI_CALL(efi_close_protocol(
-				(efi_handle_t)fmp,
-				&efi_guid_firmware_management_protocol,
-				NULL, NULL));
 		if (found)
 			return fmp;
 	}
@@ -636,17 +634,18 @@ efi_status_t __weak efi_load_capsule_drivers(void)
 
 	if (IS_ENABLED(CONFIG_EFI_CAPSULE_FIRMWARE_FIT)) {
 		handle = NULL;
-		ret = EFI_CALL(efi_install_multiple_protocol_interfaces(
-				&handle, &efi_guid_firmware_management_protocol,
-				&efi_fmp_fit, NULL));
+		ret = efi_install_multiple_protocol_interfaces(&handle,
+							       &efi_guid_firmware_management_protocol,
+							       &efi_fmp_fit,
+							       NULL);
 	}
 
 	if (IS_ENABLED(CONFIG_EFI_CAPSULE_FIRMWARE_RAW)) {
 		handle = NULL;
-		ret = EFI_CALL(efi_install_multiple_protocol_interfaces(
-				&handle,
-				&efi_guid_firmware_management_protocol,
-				&efi_fmp_raw, NULL));
+		ret = efi_install_multiple_protocol_interfaces(&handle,
+							       &efi_guid_firmware_management_protocol,
+							       &efi_fmp_raw,
+							       NULL);
 	}
 
 	return ret;
