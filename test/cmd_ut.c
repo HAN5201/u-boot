@@ -19,16 +19,26 @@ int cmd_ut_category(const char *name, const char *prefix,
 		    int argc, char *const argv[])
 {
 	int runs_per_text = 1;
+	bool force_run = false;
 	int ret;
 
-	if (argc > 1 && !strncmp("-r", argv[1], 2)) {
-		runs_per_text = dectoul(argv[1] + 2, NULL);
+	while (argc > 1 && *argv[1] == '-') {
+		const char *str = argv[1];
+
+		switch (str[1]) {
+		case 'r':
+			runs_per_text = dectoul(str + 2, NULL);
+			break;
+		case 'f':
+			force_run = true;
+			break;
+		}
 		argv++;
 		argc++;
 	}
 
 	ret = ut_run_list(name, prefix, tests, n_ents,
-			  argc > 1 ? argv[1] : NULL, runs_per_text);
+			  argc > 1 ? argv[1] : NULL, runs_per_text, force_run);
 
 	return ret ? CMD_RET_FAILURE : 0;
 }
@@ -48,6 +58,9 @@ static struct cmd_tbl cmd_ut_sub[] = {
 #endif
 #ifdef CONFIG_CMD_FDT
 	U_BOOT_CMD_MKENT(fdt, CONFIG_SYS_MAXARGS, 1, do_ut_fdt, "", ""),
+#endif
+#ifdef CONFIG_CONSOLE_TRUETYPE
+	U_BOOT_CMD_MKENT(font, CONFIG_SYS_MAXARGS, 1, do_ut_font, "", ""),
 #endif
 #ifdef CONFIG_UT_OPTEE
 	U_BOOT_CMD_MKENT(optee, CONFIG_SYS_MAXARGS, 1, do_ut_optee, "", ""),
@@ -143,6 +156,9 @@ static char ut_help_text[] =
 #endif
 #ifdef CONFIG_CMD_FDT
 	"ut fdt [test-name] - test of the fdt command\n"
+#endif
+#ifdef CONFIG_CONSOLE_TRUETYPE
+	"ut font [test-name] - test of the font command\n"
 #endif
 #ifdef CONFIG_UT_LIB
 	"ut lib [test-name] - test library functions\n"

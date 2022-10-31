@@ -93,7 +93,7 @@ config LNX_KRNL_IMG_TEXT_OFFSET_BASE
 	depends on LINUX_KERNEL_IMAGE_HEADER
 	hex
 	help
-	  The value subtracted from CONFIG_SYS_TEXT_BASE to calculate the
+	  The value subtracted from CONFIG_TEXT_BASE to calculate the
 	  TEXT_OFFSET value written to the Linux kernel image header.
 
 config GICV2
@@ -678,31 +678,6 @@ config ARCH_BCM283X
 	imply CMD_DM
 	imply FAT_WRITE
 
-config ARCH_BCM63158
-	bool "Broadcom BCM63158 family"
-	select DM
-	select OF_CONTROL
-	imply CMD_DM
-
-config ARCH_BCM6753
-	bool "Broadcom BCM6753 family"
-	select CPU_V7A
-	select DM
-	select OF_CONTROL
-	imply CMD_DM
-
-config ARCH_BCM68360
-	bool "Broadcom BCM68360 family"
-	select DM
-	select OF_CONTROL
-	imply CMD_DM
-
-config ARCH_BCM6858
-	bool "Broadcom BCM6858 family"
-	select DM
-	select OF_CONTROL
-	imply CMD_DM
-
 config ARCH_BCMSTB
 	bool "Broadcom BCM7XXX family"
 	select CPU_V7A
@@ -719,6 +694,7 @@ config ARCH_BCMBCA
 	bool "Broadcom broadband chip family"
 	select DM
 	select OF_CONTROL
+	imply CMD_DM
 
 config TARGET_VEXPRESS_CA9X4
 	bool "Support vexpress_ca9x4"
@@ -1040,7 +1016,7 @@ config ARCH_APPLE
 	select DM_SERIAL
 	select DM_SPI
 	select DM_USB
-	select DM_VIDEO
+	select VIDEO
 	select IOMMU
 	select LINUX_KERNEL_IMAGE_HEADER
 	select OF_BOARD_SETUP
@@ -2335,10 +2311,6 @@ source "board/Marvell/octeontx2/Kconfig"
 source "board/armltd/vexpress/Kconfig"
 source "board/armltd/vexpress64/Kconfig"
 source "board/cortina/presidio-asic/Kconfig"
-source "board/broadcom/bcm963158/Kconfig"
-source "board/broadcom/bcm96753ref/Kconfig"
-source "board/broadcom/bcm968360bg/Kconfig"
-source "board/broadcom/bcm968580xref/Kconfig"
 source "board/broadcom/bcmns3/Kconfig"
 source "board/cavium/thunderx/Kconfig"
 source "board/eets/pdu001/Kconfig"

@@ -28,7 +28,6 @@
 #include <i2c.h>
 #include <init.h>
 #include <initcall.h>
-#include <lcd.h>
 #include <log.h>
 #include <malloc.h>
 #include <mapmem.h>
@@ -128,8 +127,8 @@ static int display_text_info(void)
 	bss_start = (ulong)&__bss_start;
 	bss_end = (ulong)&__bss_end;
 
-#ifdef CONFIG_SYS_TEXT_BASE
-	text_base = CONFIG_SYS_TEXT_BASE;
+#ifdef CONFIG_TEXT_BASE
+	text_base = CONFIG_TEXT_BASE;
 #else
 	text_base = CONFIG_SYS_MONITOR_BASE;
 #endif
@@ -409,22 +408,18 @@ __weak int arch_reserve_mmu(void)
 
 static int reserve_video(void)
 {
-#ifdef CONFIG_DM_VIDEO
-	ulong addr;
-	int ret;
+	if (IS_ENABLED(CONFIG_VIDEO)) {
+		ulong addr;
+		int ret;
 
-	addr = gd->relocaddr;
-	ret = video_reserve(&addr);
-	if (ret)
-		return ret;
-	debug("Reserving %luk for video at: %08lx\n",
-	      ((unsigned long)gd->relocaddr - addr) >> 10, addr);
-	gd->relocaddr = addr;
-#elif defined(CONFIG_LCD)
-	/* reserve memory for LCD display (always full pages) */
-	gd->relocaddr = lcd_setmem(gd->relocaddr);
-	gd->fb_base = gd->relocaddr;
-#endif
+		addr = gd->relocaddr;
+		ret = video_reserve(&addr);
+		if (ret)
+			return ret;
+		debug("Reserving %luk for video at: %08lx\n",
+		      ((unsigned long)gd->relocaddr - addr) >> 10, addr);
+		gd->relocaddr = addr;
+	}
 
 	return 0;
 }
@@ -694,7 +689,7 @@ static int reloc_bloblist(void)
 static int setup_reloc(void)
 {
 	if (!(gd->flags & GD_FLG_SKIP_RELOC)) {
-#ifdef CONFIG_SYS_TEXT_BASE
+#ifdef CONFIG_TEXT_BASE
 #ifdef ARM
 		gd->reloc_off = gd->relocaddr - (unsigned long)__image_copy_start;
 #elif defined(CONFIG_MICROBLAZE)
@@ -704,9 +699,9 @@ static int setup_reloc(void)
 		 * On all ColdFire arch cpu, monitor code starts always
 		 * just after the default vector table location, so at 0x400
 		 */
-		gd->reloc_off = gd->relocaddr - (CONFIG_SYS_TEXT_BASE + 0x400);
+		gd->reloc_off = gd->relocaddr - (CONFIG_TEXT_BASE + 0x400);
 #elif !defined(CONFIG_SANDBOX)
-		gd->reloc_off = gd->relocaddr - CONFIG_SYS_TEXT_BASE;
+		gd->reloc_off = gd->relocaddr - CONFIG_TEXT_BASE;
 #endif
 #endif
 	}
