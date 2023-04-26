@@ -12,7 +12,7 @@ config ARM64
 
 config ARM64_CRC32
 	bool "Enable support for CRC32 instruction"
-	depends on ARM64
+	depends on ARM64 && CC_IS_GCC
 	default y
 	help
 	  ARMv8 implements dedicated crc32 instruction for crc32 calculation.
@@ -1956,8 +1956,7 @@ config ARCH_ROCKCHIP
 	imply ADC
 	imply CMD_DM
 	imply DEBUG_UART_BOARD_INIT
-	imply DISTRO_DEFAULTS if !ROCKCHIP_RK3399
-	imply BOOTSTD_DEFAULTS if !DISTRO_DEFAULTS
+	imply BOOTSTD_DEFAULTS
 	imply FAT_WRITE
 	imply SARADC_ROCKCHIP
 	imply SPL_SYSRESET
@@ -2044,7 +2043,6 @@ config TARGET_XENGUEST_ARM64
 	select OF_CONTROL
 	select LINUX_KERNEL_IMAGE_HEADER
 	select XEN_SERIAL
-	select SSCANF
 	imply OF_HAS_PRIOR_STAGE
 
 config ARCH_GXP
