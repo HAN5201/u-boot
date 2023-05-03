@@ -291,6 +291,7 @@ S:	Maintained
 F:	arch/arm/cpu/armv8/hisilicon
 F:	arch/arm/include/asm/arch-hi6220/
 F:	arch/arm/include/asm/arch-hi3660/
+F:	arch/arm/mach-histb
 
 ARM HPE GXP ARCHITECTURE
 M:	Jean-Marie Verdun <verdun@hpe.com>
@@ -1504,7 +1505,9 @@ TPM DRIVERS
 M:	Ilias Apalodimas <ilias.apalodimas@linaro.org>
 S:	Maintained
 T:	git https://source.denx.de/u-boot/custodians/u-boot-tpm.git
+F:	cmd/tpm*
 F:	drivers/tpm/
+F:	include/tpm*
 
 TQ GROUP
 #M:	Martin Krause <martin.krause@tq-systems.de>
