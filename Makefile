@@ -1,9 +1,9 @@
 # SPDX-License-Identifier: GPL-2.0+
 
 VERSION = 2023
-PATCHLEVEL = 07
+PATCHLEVEL = 10
 SUBLEVEL =
-EXTRAVERSION =
+EXTRAVERSION = -rc1
 NAME =
 
 # *DOCUMENTATION*
@@ -2444,7 +2444,7 @@ quiet_cmd_genenv = GENENV  $@
 cmd_genenv = \
 	$(objtree)/tools/printinitialenv | \
 	sed -e '/^\s*$$/d' | \
-	sort --field-separator='=' -k1,1 --stable -o $@
+	sort -t '=' -k 1,1 -s -o $@
 
 u-boot-initial-env: $(env_h) FORCE
 	$(Q)$(MAKE) $(build)=tools $(objtree)/tools/printinitialenv
