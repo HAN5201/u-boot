@@ -47,33 +47,7 @@ dtb-$(CONFIG_ARCH_DAVINCI) += \
 
 dtb-$(CONFIG_ARCH_KIRKWOOD) += \
 	kirkwood-atl-sbx81lifkw.dtb \
-	kirkwood-atl-sbx81lifxcat.dtb \
-	kirkwood-blackarmor-nas220.dtb \
-	kirkwood-d2net.dtb \
-	kirkwood-dns325.dtb \
-	kirkwood-dockstar.dtb \
-	kirkwood-dreamplug.dtb \
-	kirkwood-ds109.dtb \
-	kirkwood-goflexnet.dtb \
-	kirkwood-guruplug-server-plus.dtb \
-	kirkwood-ib62x0.dtb \
-	kirkwood-iconnect.dtb \
-	kirkwood-is2.dtb \
-	kirkwood-lsxhl.dtb \
-	kirkwood-lschlv2.dtb \
-	kirkwood-net2big.dtb \
-	kirkwood-ns2.dtb \
-	kirkwood-ns2lite.dtb \
-	kirkwood-ns2max.dtb \
-	kirkwood-ns2mini.dtb \
-	kirkwood-nsa310s.dtb \
-	kirkwood-nsa325.dtb \
-	kirkwood-openrd-base.dtb \
-	kirkwood-openrd-client.dtb \
-	kirkwood-openrd-ultimate.dtb \
-	kirkwood-pogo_e02.dtb \
-	kirkwood-pogoplug-series-4.dtb \
-	kirkwood-sheevaplug.dtb
+	kirkwood-atl-sbx81lifxcat.dtb
 
 dtb-$(CONFIG_MACH_S900) += \
 	bubblegum_96.dtb
@@ -219,40 +193,8 @@ dtb-$(CONFIG_ARCH_S5P4418) += \
 	s5p4418-nanopi2.dtb
 
 dtb-$(CONFIG_ARCH_MESON) += \
-	meson-a1-ad401.dtb \
-	meson-axg-s400.dtb \
-	meson-axg-jethome-jethub-j100.dtb \
-	meson-gxl-s805x-libretech-ac.dtb \
-	meson-gxl-s905d-libretech-pc.dtb \
-	meson-gxl-s905w-jethome-jethub-j80.dtb \
-	meson-gxl-s905x-khadas-vim.dtb \
-	meson-gxl-s905x-libretech-cc.dtb \
-	meson-gxl-s905x-libretech-cc-v2.dtb \
-	meson-gxl-s905x-p212.dtb \
-	meson-gxm-gt1-ultimate.dtb \
-	meson-gxm-khadas-vim2.dtb \
-	meson-gxm-s912-libretech-pc.dtb \
-	meson-gxm-wetek-core2.dtb \
-	meson-g12a-radxa-zero.dtb \
-	meson-g12a-sei510.dtb \
-	meson-g12a-u200.dtb \
-	meson-g12b-a311d-bananapi-m2s.dtb \
-	meson-g12b-a311d-khadas-vim3.dtb \
-	meson-g12b-bananapi-cm4-cm4io.dtb \
-	meson-g12b-gsking-x.dtb \
-	meson-g12b-gtking.dtb \
-	meson-g12b-gtking-pro.dtb \
-	meson-g12b-odroid-go-ultra.dtb \
-	meson-g12b-odroid-n2.dtb \
-	meson-g12b-odroid-n2l.dtb \
-	meson-g12b-odroid-n2-plus.dtb \
-	meson-g12b-radxa-zero2.dtb \
-	meson-sm1-bananapi-m2-pro.dtb \
-	meson-sm1-bananapi-m5.dtb \
-	meson-sm1-khadas-vim3l.dtb \
-	meson-sm1-odroid-c4.dtb \
-	meson-sm1-odroid-hc4.dtb \
-	meson-sm1-sei610.dtb
+	meson-a1-ad401.dtb
+
 dtb-$(CONFIG_ARCH_TEGRA) += tegra20-harmony.dtb \
 	tegra20-medcom-wide.dtb \
 	tegra20-paz00.dtb \
@@ -1082,16 +1024,12 @@ dtb-$(CONFIG_ARCH_IMX8M) += \
 	imx8mm-phg.dtb \
 	imx8mm-phyboard-polis-rdk.dtb \
 	imx8mm-phygate-tauri-l.dtb \
-	imx8mm-verdin-wifi-dev.dtb \
 	imx8mn-bsh-smm-s2.dtb \
 	imx8mn-bsh-smm-s2pro.dtb \
 	imx8mq-cm.dtb \
 	imx8mn-var-som-symphony.dtb \
-	imx8mm-beacon-kit.dtb \
-	imx8mn-beacon-kit.dtb \
 	imx8mq-mnt-reform2.dtb \
 	imx8mq-phanbell.dtb \
-	imx8mp-beacon-kit.dtb \
 	imx8mp-data-modul-edm-sbc.dtb \
 	imx8mp-dhcom-som-overlay-rev100.dtbo \
 	imx8mp-dhcom-som-overlay-eth1xfast.dtbo \
@@ -1104,7 +1042,6 @@ dtb-$(CONFIG_ARCH_IMX8M) += \
 	imx8mp-icore-mx8mp-edimm2.2.dtb \
 	imx8mp-msc-sm2s.dtb \
 	imx8mp-phyboard-pollux-rdk.dtb \
-	imx8mp-verdin-wifi-dev.dtb \
 	imx8mq-pico-pi.dtb \
 	imx8mq-kontron-pitx-imx8m.dtb \
 	imx8mq-librem5-r4.dtb
