@@ -1286,6 +1286,15 @@ u-boot.hex u-boot.srec: u-boot FORCE
 
 OBJCOPYFLAGS_u-boot-elf.srec := $(OBJCOPYFLAGS_u-boot.srec)
 
+ifeq ($(CONFIG_POSITION_INDEPENDENT)$(CONFIG_RCAR_GEN3),yy)
+# The flash_writer tool and previous recovery tools
+# require the SREC load address to be 0x5000_0000 .
+# The PIE U-Boot build sets the address to 0x0, so
+# override the address back to make u-boot-elf.srec
+# compatible with the recovery tools.
+OBJCOPYFLAGS_u-boot-elf.srec += --change-addresses=0x50000000
+endif
+
 u-boot-elf.srec: u-boot.elf FORCE
 	$(call if_changed,objcopy)
 
@@ -1779,6 +1788,7 @@ endif
 ifeq ($(LTO_ENABLE),y)
 quiet_cmd_u-boot__ ?= LTO     $@
       cmd_u-boot__ ?=								\
+		touch $(u-boot-main) ;						\
 		$(CC) -nostdlib -nostartfiles					\
 		$(LTO_FINAL_LDFLAGS) $(c_flags)					\
 		$(KBUILD_LDFLAGS:%=-Wl,%) $(LDFLAGS_u-boot:%=-Wl,%) -o $@	\
@@ -1792,7 +1802,9 @@ quiet_cmd_u-boot__ ?= LTO     $@
 		$(if $(ARCH_POSTLINK), $(MAKE) -f $(ARCH_POSTLINK) $@, true)
 else
 quiet_cmd_u-boot__ ?= LD      $@
-      cmd_u-boot__ ?= $(LD) $(KBUILD_LDFLAGS) $(LDFLAGS_u-boot) -o $@		\
+      cmd_u-boot__ ?=								\
+		touch $(u-boot-main) ;						\
+		$(LD) $(KBUILD_LDFLAGS) $(LDFLAGS_u-boot) -o $@			\
 		-T u-boot.lds $(u-boot-init)					\
 		--whole-archive							\
 			$(u-boot-main)						\
