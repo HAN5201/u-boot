@@ -1119,6 +1119,7 @@ dtb-$(CONFIG_BCM6878) += \
 dtb-$(CONFIG_ASPEED_AST2500) += ast2500-evb.dtb
 dtb-$(CONFIG_ASPEED_AST2600) += \
 	ast2600-evb.dtb \
+	ast2600-sbp1.dtb \
 	ast2600-x4tf.dtb
 
 dtb-$(CONFIG_ARCH_STI) += stih410-b2260.dtb
@@ -1180,7 +1181,6 @@ dtb-$(CONFIG_ARCH_MEDIATEK) += \
 	mt7623a-unielec-u7623-02-emmc.dtb \
 	mt7622-bananapi-bpi-r64.dtb \
 	mt7623n-bananapi-bpi-r2.dtb \
-	mt7629-rfb.dtb \
 	mt7981-rfb.dtb \
 	mt7981-emmc-rfb.dtb \
 	mt7981-sd-rfb.dtb \
