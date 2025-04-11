@@ -837,7 +837,7 @@ UBOOTINCLUDE    := \
 		-I$(srctree)/lib/mbedtls/port \
 		-I$(srctree)/lib/mbedtls/external/mbedtls \
 		-I$(srctree)/lib/mbedtls/external/mbedtls/include) \
-	$(if $(CONFIG_$(XPL_)SYS_THUMB_BUILD), \
+	$(if $(CONFIG_$(PHASE_)SYS_THUMB_BUILD), \
 		$(if $(CONFIG_HAS_THUMB2), \
 			$(if $(CONFIG_CPU_V7M), \
 				-I$(srctree)/arch/arm/thumb1/include), \
@@ -874,7 +874,7 @@ libs-y += disk/
 libs-y += drivers/
 libs-$(CONFIG_SYS_FSL_DDR) += drivers/ddr/fsl/
 libs-$(CONFIG_SYS_FSL_MMDC) += drivers/ddr/fsl/
-libs-$(CONFIG_$(XPL_)ALTERA_SDRAM) += drivers/ddr/altera/
+libs-$(CONFIG_$(PHASE_)ALTERA_SDRAM) += drivers/ddr/altera/
 libs-y += drivers/usb/cdns3/
 libs-y += drivers/usb/dwc3/
 libs-y += drivers/usb/common/
@@ -2231,7 +2231,7 @@ CLEAN_FILES += include/autoconf.mk* include/bmp_logo.h include/bmp_logo_data.h \
 	       itb.fit.fit itb.fit.itb itb.map spl.map mkimage-out.rom.mkimage \
 	       mkimage.rom.mkimage mkimage-in-simple-bin* rom.map simple-bin* \
 	       idbloader-spi.img lib/efi_loader/helloworld_efi.S *.itb \
-	       Test* capsule*.*.efi-capsule capsule*.map
+	       Test* capsule*.*.efi-capsule capsule*.map capsule_esl_file
 
 # Directories & files removed with 'make mrproper'
 MRPROPER_DIRS  += include/config include/generated spl tpl vpl \

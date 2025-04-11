@@ -35,7 +35,7 @@ obj-${CONFIG_EXYNOS_FB} += exynos/
 obj-${CONFIG_VIDEO_ROCKCHIP} += rockchip/
 obj-${CONFIG_VIDEO_STM32} += stm32/
 obj-${CONFIG_VIDEO_TEGRA124} += tegra124/
-obj-${CONFIG_$(XPL_)VIDEO_TIDSS} += tidss/
+obj-${CONFIG_$(PHASE_)VIDEO_TIDSS} += tidss/
 obj-y += ti/
 
 obj-$(CONFIG_ATMEL_HLCD) += atmel_hlcdfb.o
@@ -53,7 +53,7 @@ obj-$(CONFIG_VIDEO_COREBOOT) += coreboot.o
 obj-$(CONFIG_VIDEO_DW_HDMI) += dw_hdmi.o
 obj-$(CONFIG_VIDEO_DW_MIPI_DSI) += dw_mipi_dsi.o
 obj-$(CONFIG_VIDEO_EFI) += efi.o
-obj-$(CONFIG_VIDEO_IPUV3) += imx/
+obj-y += imx/
 obj-$(CONFIG_VIDEO_IVYBRIDGE_IGD) += ivybridge_igd.o
 obj-$(CONFIG_VIDEO_LCD_ANX9804) += anx9804.o
 obj-$(CONFIG_VIDEO_LCD_ENDEAVORU) += endeavoru-panel.o
