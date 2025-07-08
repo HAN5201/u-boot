@@ -7,7 +7,7 @@ ifndef CONFIG_XPL_BUILD
 # core command
 obj-y += boot.o
 obj-$(CONFIG_CMD_BOOTM) += bootm.o
-obj-y += help.o
+obj-$(CONFIG_CMD_HELP) += help.o
 obj-y += panic.o
 obj-y += version.o
 
@@ -133,7 +133,8 @@ obj-$(CONFIG_CMD_NAND) += nand.o
 ifdef CONFIG_NET
 obj-$(CONFIG_CMD_NET) += net.o net-common.o
 else ifdef CONFIG_NET_LWIP
-obj-$(CONFIG_CMD_NET) += net-lwip.o net-common.o
+obj-$(CONFIG_CMD_NET) += net-common.o
+obj-y += lwip/
 endif
 obj-$(CONFIG_ENV_SUPPORT) += nvedit.o
 obj-$(CONFIG_CMD_NVEDIT_EFI) += nvedit_efi.o
