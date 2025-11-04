@@ -311,6 +311,7 @@ void spl_enable_cache(void)
 	int ret = 0;
 
 	dram_init();
+	dram_init_banksize();
 
 	/* reserve TLB table */
 	gd->arch.tlb_size = PGTABLE_SIZE;
@@ -480,3 +481,11 @@ release_proc_ctrl:
 	proc_ops->proc_release(ti_sci, PROC_ID_MCU_R5FSS0_CORE1);
 	return ret;
 }
+
+#if IS_ENABLED(CONFIG_ARM64) && IS_ENABLED(CONFIG_SPL_OS_BOOT_SECURE)
+int spl_start_uboot(void)
+{
+	/* Always boot to linux on Cortex-A SPL with CONFIG_SPL_OS_BOOT set */
+	return 0;
+}
+#endif
