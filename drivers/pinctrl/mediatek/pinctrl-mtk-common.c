@@ -11,6 +11,10 @@
 #include <asm/io.h>
 #include <asm-generic/gpio.h>
 #include <linux/bitops.h>
+#include <linux/err.h>
+#include <log.h>
+#include <regmap.h>
+#include <syscon.h>
 
 #include "pinctrl-mtk-common.h"
 
@@ -364,11 +368,13 @@ int mtk_pinconf_bias_set_v1(struct udevice *dev, u32 pin, bool disable,
 	/* set pupd_r1_r0 if pullen_pullsel succeeded */
 	err = mtk_pinconf_bias_set_pullen_pullsel(dev, pin, disable, pullup,
 						  val);
-	if (!err)
-		return mtk_pinconf_bias_set_pupd_r1_r0(dev, pin, disable,
-						       pullup, val);
+	if (err)
+		return err;
 
-	return err;
+	/* Not all pins have PUPD/R1/R0 registers, so ignore any error here. */
+	mtk_pinconf_bias_set_pupd_r1_r0(dev, pin, disable, pullup, val);
+
+	return 0;
 }
 
 int mtk_pinconf_bias_set_pu_pd(struct udevice *dev, u32 pin, bool disable,
@@ -820,32 +826,17 @@ int mtk_pinctrl_common_probe(struct udevice *dev,
 	 * for the interrupt controller, so we only use the 1st one currently.
 	 */
 	num_regmaps = dev_count_phandle_with_args(dev, "mediatek,pctl-regmap", NULL, 0);
-	if (num_regmaps > ARRAY_SIZE(priv->base))
-		return -EINVAL;
 
 	if (num_regmaps > 0) {
-		for (i = 0; i < num_regmaps; i++) {
-			struct ofnode_phandle_args args;
-			struct udevice *syscon_dev;
-			int ret;
+		struct regmap *regmap;
 
-			ret = dev_read_phandle_with_args(dev, "mediatek,pctl-regmap",
-							 NULL, 0, i, &args);
-			if (ret)
-				return ret;
+		regmap = syscon_regmap_lookup_by_phandle(dev, "mediatek,pctl-regmap");
+		if (IS_ERR(regmap))
+			return log_msg_ret("regmap: ", PTR_ERR(regmap));
 
-			ret = uclass_get_device_by_ofnode(UCLASS_SYSCON,
-							  args.node,
-							  &syscon_dev);
-			if (ret)
-				return ret;
-
-			addr = dev_read_addr_index(syscon_dev, 0);
-			if (addr == FDT_ADDR_T_NONE)
-				return -EINVAL;
-
-			priv->base[i] = (void __iomem *)addr;
-		}
+		priv->base[0] = regmap_get_range(regmap, 0);
+		if (!priv->base[0])
+			return log_msg_ret("range: ", -EINVAL);
 
 		return 0;
 	}
