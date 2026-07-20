@@ -45,17 +45,17 @@ Where to get help:
 
 In case you have questions about, problems with or contributions for
 U-Boot, you should send a message to the U-Boot mailing list at
-<u-boot@lists.denx.de>. There is also an archive of previous traffic
+<u-boot@lists.u-boot-project.org>. There is also an archive of previous traffic
 on the mailing list - please search the archive before asking FAQ's.
-Please see https://lists.denx.de/pipermail/u-boot and
+Please see https://lists.u-boot-project.org/pipermail/u-boot and
 https://marc.info/?l=u-boot
 
 Where to get source code:
 =========================
 
 The U-Boot source code is maintained in the Git repository at
-https://source.denx.de/u-boot/u-boot.git ; you can browse it online at
-https://source.denx.de/u-boot/u-boot
+https://git.u-boot-project.org/u-boot/u-boot.git ; you can browse it online at
+https://git.u-boot-project.org/u-boot/u-boot
 
 The "Tags" links on this page allow you to download tarballs of
 any version you might be interested in. Official releases are also
