@@ -600,3 +600,10 @@ config SANDBOX_PMBUS
 	  (DM_REGULATOR_PMBUS_GENERIC) and the pmbus CLI command can be
 	  exercised by the dm unit tests with no real hardware. Only
 	  useful for testing; say N on real boards.
+
+config DM_REGULATOR_SPACEMIT_P1
+	bool "Enable driver for Spacemit P1 PMIC regulators"
+	depends on DM_REGULATOR && PMIC_SPACEMIT_P1
+	help
+	  Enable implementation of driver-model regulator uclass features
+	  for regulator P1. The driver supports BUCKs, LDOs and SWITCHes.
