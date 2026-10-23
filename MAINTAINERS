@@ -1530,6 +1530,7 @@ M:	Yixun Lan <dlan@kernel.org>
 S:	Maintained
 T:	git https://git.u-boot-project.org/u-boot/custodians/u-boot-spacemit.git
 F:	arch/riscv/dts/k1-*-u-boot.dtsi
+F:	drivers/phy/spacemit/phy-k1-usb2.c
 N:	spacemit
 K:	spacemit
 
@@ -1695,11 +1696,12 @@ F:	common/stackprot.c
 F:	cmd/stackprot_test.c
 F:	test/py/tests/test_stackprotector.py
 
-STARTEK KD070FHFID015 PANEL
+STARTEK PANELS
+M:	David Lechner <dlechner@baylibre.com>
 M:	Julien Stephan <jstephan@baylibre.com>
 R:	GSS_MTK_Uboot_upstream <GSS_MTK_Uboot_upstream@mediatek.com>
 S:	Maintained
-F:	drivers/video/panel-startek-kd070fhfid015.c
+F:	drivers/video/panel-startek-*
 
 TARGET_BCMNS3
 M:	Rayagonda Kokatanur <rayagonda.kokatanur@broadcom.com>
