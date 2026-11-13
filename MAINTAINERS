@@ -848,6 +848,7 @@ F:	drivers/mmc/mmc_bootdev.c
 F:	include/bootdev.h
 F:	include/bootflow.h
 F:	include/bootmeth.h
+F:	include/bootmeth_rauc.h
 F:	include/bootstd.h
 F:	test/boot/
 
@@ -1806,6 +1807,7 @@ M:	Heiko Schocher <hs@nabladev.com>
 S:	Maintained
 T:	git https://git.u-boot-project.org/u-boot/custodians/u-boot-ubi.git
 F:	drivers/mtd/ubi/
+F:	test/dm/ubi.c
 
 UFETCH
 M:	Casey Connolly <casey.connolly@linaro.org>
